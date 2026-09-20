@@ -32,3 +32,11 @@ const getALlQuiz =async (courseKey) => {
 }
 
 getAllQuiz()
+
+function setQuiz(e){
+  // alert("quiz")
+  console.log(e.id)
+  localStorage.setItem("quizKey",e.id)
+
+  window.location.href="./index.html"
+}
