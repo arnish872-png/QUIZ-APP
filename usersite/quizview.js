@@ -1,5 +1,5 @@
 var courseKey = "";
-var quizList= document.getElementById("quizList")
+var quizList = document.getElementById("quizList")
 async function getAllQuiz() {
     var loginUserId = localStorage.getItem("loginUser")
     await firebase.database().ref("user").child(loginUserId).get()
@@ -10,33 +10,34 @@ async function getAllQuiz() {
         })
 
 }
-const getALlQuiz =async (courseKey) => {
-    await  firebase.database().ref("Quiz").get().then((snap)=>{
+const getALlQuiz = async (courseKey) => {
+    await firebase.database().ref("Quiz").get().then((snap) => {
         var db = snap.val()
         // console.log(db)
         const arr = Object.values(db)
         console.log(arr)
-        arr.forEach((data)=>{
-            if(data.coursekey==courseKey){
-            console.log(data)
-            quizList.innerHTML+=`
+        arr.forEach((v) => {
+            if (v.coursekey == courseKey) {
+                console.log(v);
+                quizList.innerHTML += `
             <div class='card'>
-            ${data.quizName}</div>
-            `
-
-
-
+            ${v.quizName}
+            <br><br>
+            <button id=${v.quizKey} onclick='setQuiz(this)'>View quiz</button>
+            </div>
+            `;
             }
-        })
+        });
     })
 }
 
 getAllQuiz()
 
-function setQuiz(e){
-  // alert("quiz")
-  console.log(e.id)
-  localStorage.setItem("quizKey",e.id)
+function setQuiz(e) {
+    // alert("quiz")
+    console.log(e.id)
+    localStorage.setItem("quizKey", e.id)
 
-  window.location.href="./index.html"
+    window.location.href = "./index.html"
 }
+setQuiz
